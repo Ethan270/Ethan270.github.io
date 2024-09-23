@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<body>
+<script src="script.js"></script>
+
+
+
+
+    <script>
+        var FavoriteURLs= ["https://www.youtube.com/",
+        "https://open.spotify.com/",
+        "https://www.amazon.com/"
+    
+    ];
+    </script>
+   
+  <!--Code to make the quotes change depending on the result when the number the user inputs is divided by 5 -->
+  <h1>Enter a Number (1-100)</h1>
+  <input type="number" id="numberInput" placeholder="1-100" />
+  <button onclick="divide()">Submit</button>
+  <p id="result"></p>
+  
+  <script>
+      function divide() {
+          var number = document.getElementById('numberInput').value;
+          number = parseInt(number);
+  
+          if (number >= 1 && number <= 100) {
+            var result = number / 5; 
+            document.getElementById('result').innerText = result;
+              
+              
+              if (number >= 1 && number <= 20) {
+                  document.getElementById('result').innerText += " - If you only do what you can do, you will never be more than you are.";
+              } else if (number >= 21 && number <= 40) {
+                  document.getElementById('result').innerText += " - Nothing will work unless you do.";
+              } else if (number >= 41 && number <= 60) {
+                  document.getElementById('result').innerText += " - Don't let someone else's opinion of you become your reality.";
+              } else if (number >= 61 && number <= 80) {
+                  document.getElementById('result').innerText += " - If life gives you lemons, make lemonade.";
+              } else if (number >= 81 && number <= 100) {
+                  document.getElementById('result').innerText += " - Life begins at the end of your comfort zone.";
+              }
+            }
+      }
+  </script>
+    
+    
+     <!-- Code to make the URLS clickable as well as the users when they input a valid website url.
+    !-->
+    
+    <script>
+
+    document.write('<p>My first favorite URL is <strong><a href="' + FavoriteURLs[0] + '" target="_blank">' + FavoriteURLs[0] + '</a></strong></p>');
+    document.write('<p>My third favorite URL is <strong><a href="' + FavoriteURLs[FavoriteURLs.length - 1] + '" target="_blank">' + FavoriteURLs[FavoriteURLs.length - 1] + '</a></strong></p>');
+    
+    FavoriteURLs.unshift("https://www.youtube.com/");
+    
+    document.write('<p>I almost forgot <strong><a href="' + FavoriteURLs[2] + '" target="_blank">' + FavoriteURLs[2] + '</a></strong></p>');
+    </script>
+     <h2>What is your favorite url?:</h2>
+
+    <input type="text" id="urlInput" placeholder="Enter your favorite URL"/>
+    <button id="addButton">Add URL</button>
+    
+    <ul id="urlList"></ul>
+    <script>
+        const userFavoriteURLs = [];
+    
+        function addURL() {
+            const urlInput = document.getElementById('urlInput');
+            const url = urlInput.value;
+
+            if (url) {
+                userFavoriteURLs.push(url); 
+                displayURLs();
+                urlInput.value = ''; 
+            } 
+            else {
+                alert('Please enter a valid URL.');
+            }
+        }
+    
+        function displayURLs() {
+            const urlList = document.getElementById('urlList');
+            urlList.innerHTML = '';
+    
+            userFavoriteURLs.forEach(function(url) {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = '<strong><a href="' + url + '" target="_blank">' + url + '</a></strong>';
+                urlList.appendChild(listItem);
+            });
+        }
+        document.getElementById('addButton').addEventListener('click', addURL);
+    </script>
+
+
+
+    
+
+
+        
+</body>
