@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<script>
+var score = 0;
+var TriviaQuestions=[
+["How many dots are on each Pacman board?", 240],
+["How tall is the Statue of Liberty Sculpture in Feet?", 305],
+["How many escalators does wyoming have?", 2]
+
+];
+
+function askQuestion(TriviaQuestions) {
+    let attempts= 0;
+    let maxAttempts=3;
+    let answer;
+
+    while(attempts < maxAttempts) {
+        answer = prompt(TriviaQuestions[0],'')
+        attempts++;
+
+        if (answer == TriviaQuestions[1]) {
+            alert('Correct!');
+            if (attempts === 1) score +=3;
+            else if (attempts === 2) score +=2;
+            else score += 1;
+            return;
+        
+        } else {
+            if (attempts < maxAttempts) {
+                alert('Incorrect, Try again.');
+            } else {
+                alert('Sorry, The correct answer is ' + TriviaQuestions[1]);
+            
+            }
+        }
+    }
+}
+for (let i = 0; i < TriviaQuestions.length; i++)  {
+    askQuestion(TriviaQuestions[i]);
+}
+document.write('<p> You got ' + score + ' out of ' + (TriviaQuestions.length * 3 ) + ' points.</p>');
+</script>
+
+<p>Thanks for playing.</p>
+    <!--
+   for(let attempts=1; attempts<= 3; attempts++){
+    let answer = prompt(TriviaQuestions[0],'');
+    if (answer == TriviaQuestions[1]){
+        alert('Correct!');
+        if (attempts === 1) score +=3;
+        else if (attempts === 2) score += 2;
+        else score += 1;
+        return;
+    }else if(attempts < 3){
+        alert('Incorrect, Try again.');
+    }else {
+        alert('Sorry, The correct answer is '+ TriviaQuestions[1]);
+    }
+    }
+   }
+   TriviaQuestions.forEach(askQuestion);
+   document.write('<p>You got ' + score + ' out of ' + (TriviaQuestions.length * 3 ) + ' points.</p>');
+ 
+   
+     
+
+
+   var answer = prompt(TriviaQuestions[0],'');
+    if(answer == TriviaQuestions[1]) {
+        alert('Correct!');
+        score++; 
+    } else {
+        alert('Sorry. The correct answer is' + TriviaQuestions[1]);
+    }
+
+}
+for (var i=0; i<TriviaQuestions.length; i++){
+    askQuestion(TriviaQuestions[i]);
+
+}
+-->
