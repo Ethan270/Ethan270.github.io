@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+
+<body>
+
+    <div id="timeDisplay"></div>
+    <div id="greeting"></div>
+    <div id="emailDisplay"></div>
+    <div id= "QuotesOfTheDayDisplay"></div>
+    <button id="generateQuote">Click for a Random Quote</button>
+   
+
+<script>
+    let userName = prompt("Please enter your name:") || "Guest";
+function getCurrentDateTime() {
+    const now = new Date();
+    const year = String(now.getFullYear()).padStart(4, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const hour = String(now.getHours()).padStart(2, '0');
+    const minute = String(now.getMinutes()).padStart(2, '0');
+    const second = String(now.getSeconds()).padStart(2, '0');
+
+    return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+}
+
+function validateDateTime(dateTimeString) {
+    const pattern = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/; 
+    return pattern.test(dateTimeString);
+}
+function getGreeting() {
+const now = new Date();
+    const hour = now.getHours();
+    let greeting = '';
+
+    if (hour < 12) {
+        greeting = "Good Morning";
+    } else if (hour < 18) {
+        greeting = "Good Afternoon";
+    } else {
+        greeting =  "Good Evening";
+    }
+         return `${greeting}, ${userName}!`;
+}
+
+
+function updateTime() {
+    const currentTime = getCurrentDateTime();
+    if (validateDateTime(currentTime)) {
+        document.getElementById('timeDisplay').textContent = currentTime;
+        document.getElementById('greeting').textContent = getGreeting();
+    } else {
+        document.getElementById('timeDisplay').textContent = "Invalid Time Format";
+    }
+}
+
+setInterval(updateTime, 1000);
+updateTime();
+
+function isValidEmail(email) {
+    const pattern =/^[\w!#$%&\'*+\/=?^`{|}~.-]+@(?:[a-z\d][a-z\d-]*(?:\.[a-z\d-]*)?)+\.(?:[a-z][a-z\d-]+)$/i; //example from chapter 16
+    return pattern.test(email);
+}
+
+function getEmail() {
+    let email;
+    do {
+        email = prompt("Please enter your email address:");
+        if (!isValidEmail(email)) {
+            alert("Invalid email address. Please try again.");
+        }
+    } while (!isValidEmail(email));
+
+    return email;
+}
+
+function displayEmailParts(email) {
+    const [username, domain] = email.split('@');
+    const uppercaseUsername = username.toUpperCase();
+    
+    document.getElementById('emailDisplay').innerHTML = `
+        <p>Username: ${uppercaseUsername}</p>
+        <p>Domain: ${domain}</p>
+    `;
+}
+
+
+const email = getEmail(); 
+displayEmailParts(email); 
+
+const QuotesOfTheDay= [
+    "If you only do what you can do, you will never be more than you are.",
+     "Nothing will work unless you do.", 
+     "Don't let someone else's opinion of you become your reality.",
+      "If life gives you lemons, make lemonade.", 
+      "Life begins at the end of your comfort zone."
+    ];
+    function getRandomQuote() {
+        const randomIndex= Math.floor(Math.random() * QuotesOfTheDay.length);
+        return QuotesOfTheDay[randomIndex];
+    }
+    document.getElementById('generateQuote').addEventListener('click',function(){
+        const randomQuote = getRandomQuote();
+        document.getElementById('QuotesOfTheDayDisplay').textContent = randomQuote;
+
+    });
+
+    const questionAndAnswers = [
+    ["How many dots are on each Pacman board?", 240],
+    ["How tall is the Statue of Liberty Sculpture in Feet?", 305],
+    ["How many escalators does wyoming have?", 2]
+    ].map(qa => [qa[0], qa[1].toLowerCase()]);
+    
+    
+    function askQuestions() {
+        let score=0;
+        const totalQuestions= questionsAndAnswers.length;
+
+    for (let i = 0; i < questionsAndAnswers.length; i++) {
+        const question = questionsAndAnswers[i][0];
+        const correctAnswer = questionsAndAnswers[i][1];
+        
+        const userAnswer = prompt(question).toLowerCase();
+        
+        if (userAnswer === correctAnswer) {
+            alert("Correct!");
+        } else {
+            alert(`Wrong! The correct answer is: ${correctAnswer}`);
+        }
+    }
+  function displayScore(score, totalQuestions){
+        const percentage = ((score / totalQuestions) * 100).toFixed(2);
+        document.body.innerHTML += '<p> Your score: ${score} out of ${totalQuestions}</p>';
+        document.body.innerHTML += '<p>Your percentage: ${percentage}%</p>';
+    }
+    
+}
+
+askQuestions();
+
+
+// let randomNumber=Math.floor(Math.random()*4) + 1;
+
+
+</script>
+
+
+
+<!--var QuotesOfTheDay = ["If you only do what you can do, you will never be more than you are.",
+     "Nothing will work unless you do.", 
+     "Don't let someone else's opinion of you become your reality.",
+      "If life gives you lemons, make lemonade.", 
+      "Life begins at the end of your comfort zone."-->
+
+<!-- Book examples
+
+
+[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}
+
+/^[\w!#$%&\'*+\/=?^`{|}~.-]+@(?:[a-z\d][a-z\d-]*(?:\.[a-z\d-]*)?)+\.(?:[a-z][a-z\d-]+)$/i
+-->
+
+<!--var TriviaQuestions=[
+["How many dots are on each Pacman board?", 240],
+["How tall is the Statue of Liberty Sculpture in Feet?", 305],
+["How many escalators does wyoming have?", 2]-->
+</body>
